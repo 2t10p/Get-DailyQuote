@@ -4,8 +4,8 @@ include_once "./lib/phpQuery.php";
 
 date_default_timezone_set('Asia/Taipei');
 
-$intStartDay = strtotime('20131224');
-$imtLimitDay = strtotime('20140323');
+$intStartDay = strtotime('20150201');
+$imtLimitDay = strtotime('20160201');
 
 while ($intStartDay <= $imtLimitDay)
 {
@@ -18,7 +18,7 @@ while ($intStartDay <= $imtLimitDay)
         echo $strQuote;
     }
 
-    sleep(1);
+    sleep(2);
 
     $intStartDay = $intStartDay + (24*60*60);
 }
@@ -61,10 +61,13 @@ function getDailyQuote($day)
         $isVaild = false ;
     }
 
+
+    $strDefaultSQL = "INSERT INTO `quotes`( `date`, `content`, `speaker`, `status`) VALUES ( %s, '%s' , '%s' , 1);".PHP_EOL;
+
     if($isVaild)
     {
-        $strOutput = sprintf($strDefaultSQL 
-                            ,$dat['time'] 
+        $strOutput = sprintf($strDefaultSQL
+                            ,$dat['time']
                             ,addslashes($dat['h1'])
                             ,addslashes($dat['h2']));
 
